@@ -33,6 +33,12 @@ steps:
     Contents: '**\$(buildConfiguration)\**\?(*.exe|*.dll|*.pdb)'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     OverWrite: true
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: '293b0a2f-7b29-4d4e-a8e1-7f82698c4de8/156a9c73-1298-4277-bc72-05ad9b2719f9'
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
